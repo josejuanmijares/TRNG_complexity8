@@ -210,7 +210,7 @@ end
 end
 
 @everywhere function run_test()
-	n=6
+	n=7
 	for k=1:1024
 		@time st_enf(rand(2^n), 0.5)
 	end
