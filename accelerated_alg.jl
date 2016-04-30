@@ -199,7 +199,7 @@ end
 
 
 
-@everywhere function st_enf(x,sigma_0)
+function st_enf(x,sigma_0)
 	N = length(x);
 	np = nworkers();
 	xpar = [x for i=1:np];
@@ -209,10 +209,12 @@ end
 	return pmap((a,b,c) -> shuffleGApar(a,b,c), xpar, sigma_0par, Npar)
 end
 
-@everywhere function run_test()
-	n=7
-	for k=1:1024
-		@time st_enf(rand(2^n), 0.5)
+function run_test()
+	for n=4:2:300
+		for k=1:30
+			t,m =(@timed st_enf(rand(n), 0.5))[2:3]
+			println("$n, $t, $m")
+		end
 	end
 end
 
